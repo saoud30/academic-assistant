@@ -1,0 +1,15 @@
+google-generativeai
+streamlit
+matplotlib
+seaborn
+numpy
+pandas
+Pillow
+python-dotenv>
+pytesseract
+nbformat
+plotly
+sympy
+latex2sympy2
+opencv-python
+python-dotenv
