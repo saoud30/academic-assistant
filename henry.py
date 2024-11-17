@@ -1,7 +1,6 @@
 import os
-from dotenv import load_dotenv
-import google.generativeai as genai
 import streamlit as st
+import google.generativeai as genai
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
@@ -19,9 +18,6 @@ import sympy as sp
 from latex2sympy2 import latex2sympy
 import cv2
 from typing import List, Dict, Any, Optional, Union
-
-# Load environment variables
-load_dotenv()
 
 class AcademicAssistant:
     def __init__(self, api_key: str):
@@ -340,14 +336,21 @@ def main():
     st.set_page_config(page_title="Advanced AI Academic Assistant", layout="wide")
 
     # Get API key from environment variable
-    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
-    if not GEMINI_API_KEY:
-        st.error("Please set up your GEMINI_API_KEY in the .env file")
+    if 'GEMINI_API_KEY' not in st.secrets:
+        st.error("Please set up your GEMINI_API_KEY in the Streamlit secrets")
+        st.info("To set up secrets in Streamlit Cloud:")
+        st.code("""
+1. Go to your app dashboard
+2. Click on 'Settings' ⚙️
+3. Go to 'Secrets' section
+4. Add your secret like this:
+GEMINI_API_KEY='your-api-key-here'
+        """)
         return
 
     # Initialize the assistant
-    assistant = AcademicAssistant(GEMINI_API_KEY)
+    assistant = AcademicAssistant(st.secrets["GEMINI_API_KEY"])
 
     # Custom CSS for better UI
     st.markdown("""
